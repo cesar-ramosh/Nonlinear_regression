@@ -13,8 +13,15 @@ use dataset_cb_nl.dta
 
 *nl (lnoutput = {b0=1} + {b1=0.5}*ln(capital) + {b2=0.5}*ln(labor))
 
-*nl (lnoutput = {b0=1} + {b1=0.3}*ln(capital) + {b2=0.7}*ln(labor))
+nl (lnoutput = {b0=1} + {b1=0.3}*ln(capital) + {b2=0.7}*ln(labor))
 
+predictnl double lnoutputyhat = predict()
 
 gen output = exp(lnoutput)
 nl (output = {b0=1} * (capital^{b1=0.3}) * (labor^{b2=0.7}))
+
+predictnl double outputyhat = predict()
+
+
+summarize lnoutput lnoutputyhat
+summarize output outputyhat
